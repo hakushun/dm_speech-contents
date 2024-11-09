@@ -1,0 +1,15 @@
+.controller {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+  min-width: 176px;
+}
+
+.label_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}

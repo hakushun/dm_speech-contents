@@ -1,0 +1,11 @@
+:root {
+  /* NOTE: https://colorhunt.co/palette/fff7d1ffecc8ffd09bffb0b0 */
+  --primary-color: #fff7d1;
+  --secondary-color: #ffecc8;
+  --ternary-color: #ffd09b;
+  --accent-color: #ffb0b0;
+}
+
+[tabindex='-1'] {
+  outline: none;
+}
