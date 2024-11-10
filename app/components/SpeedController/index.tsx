@@ -2,6 +2,7 @@
 
 import styles from './index.module.css';
 import { useSpeechStore } from '../../lib/stores/speech';
+import { TextWithRuby } from '../TextWithRuby';
 
 export function SpeedController() {
   const speechSpeed = useSpeechStore((state) => state.speechSpeed);
@@ -14,8 +15,20 @@ export function SpeedController() {
   return (
     <div className={styles.controller}>
       <div className={styles.label_wrapper}>
-        <label htmlFor="speech_speed">読み上げスピード: </label>
-        <span>{speechSpeed}倍</span>
+        <label htmlFor="speech_speed">
+          <TextWithRuby
+            texts={[
+              { text: '読', ruby: 'よ' },
+              { text: 'み', ruby: '' },
+              { text: '上', ruby: 'あ' },
+              { text: 'げスピード:', ruby: '' },
+            ]}
+          />
+        </label>
+        <span>
+          {speechSpeed}
+          <TextWithRuby texts={[{ text: '倍', ruby: 'ばい' }]} />
+        </span>
       </div>
       <input
         type="range"

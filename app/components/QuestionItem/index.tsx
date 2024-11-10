@@ -5,6 +5,7 @@ import styles from './index.module.css';
 import { SpeechButton } from '../SpeechButton';
 import { useSpeech } from '../../lib/hooks/useSpeech';
 import { Question } from '../../lib/mock/questions';
+import { TextWithRuby } from '../TextWithRuby';
 
 type Props = {
   question: Question;
@@ -47,7 +48,9 @@ export const QuestionItem = forwardRef<HTMLLIElement, Props>(function (
       <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>
           <SpeechButton label="設問文を読み上げる" onClick={startSpeech} />
-          <h3 ref={ref}>{question.title}</h3>
+          <h3 ref={ref}>
+            <TextWithRuby texts={question.title} />
+          </h3>
         </legend>
         <div className={styles.options}>
           {question.options.map((option) => (
@@ -64,7 +67,7 @@ export const QuestionItem = forwardRef<HTMLLIElement, Props>(function (
                 onChange={() => handleChange(option.value, question.id)}
                 required
               />
-              <span>{option.label}</span>
+              <TextWithRuby texts={option.label} />
             </label>
           ))}
         </div>

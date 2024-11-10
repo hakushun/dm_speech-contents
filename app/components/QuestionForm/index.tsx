@@ -2,6 +2,7 @@
 
 import { useActionState, useEffect, useState } from 'react';
 import styles from './index.module.css';
+import { TextWithRuby } from '../TextWithRuby';
 
 type Props = {
   children: React.ReactNode;
@@ -31,7 +32,18 @@ export function QuestionForm({ children }: Props) {
       {children}
       <div className={styles.action}>
         <button type="submit" className={styles.submit} disabled={isPending}>
-          {isPending ? '送信中' : '回答を送信する'}
+          {isPending ? (
+            <TextWithRuby texts={[{ text: '送信中', ruby: 'そうしんちゅう' }]} />
+          ) : (
+            <TextWithRuby
+              texts={[
+                { text: '回答', ruby: 'かいとう' },
+                { text: 'を', ruby: '' },
+                { text: '送信', ruby: 'そうしん' },
+                { text: 'する', ruby: '' },
+              ]}
+            />
+          )}
         </button>
       </div>
     </form>
