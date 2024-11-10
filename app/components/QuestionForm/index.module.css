@@ -21,7 +21,14 @@
   font-size: 1rem;
   font-weight: bold;
   text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
   cursor: pointer;
+}
+
+.submit:active {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: translateY(1px);
 }
 
 .submit:disabled {
