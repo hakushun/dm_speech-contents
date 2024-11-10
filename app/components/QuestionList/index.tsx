@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import styles from './index.module.css';
 import { QuestionItem } from '../QuestionItem';
 import { Question } from '../../lib/mock/questions';
@@ -36,6 +36,10 @@ export function QuestionList({ questions }: Props) {
 
     focusQuestion(index + 1);
   };
+
+  useEffect(() => {
+    if (questions.length > 0) focusQuestion(0);
+  }, [questions]);
 
   return (
     <ul className={styles.list}>
