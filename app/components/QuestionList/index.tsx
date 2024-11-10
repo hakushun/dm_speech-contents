@@ -13,7 +13,7 @@ export function QuestionList({ questions }: Props) {
   const questionRefs = useRef<HTMLElement[]>([]);
   const [targetIndex, setTargetIndex] = useState(0);
 
-  const onClick = (id: number) => {
+  const handleFocus = (id: number) => {
     const index = questions.findIndex((question) => question.id === id);
 
     if (index === -1) return;
@@ -21,7 +21,7 @@ export function QuestionList({ questions }: Props) {
     setTargetIndex(index);
   };
 
-  const onChange = (id: number) => {
+  const handleFocusNext = (id: number) => {
     const index = questions.findIndex((question) => question.id === id);
 
     if (index === -1) return;
@@ -44,8 +44,8 @@ export function QuestionList({ questions }: Props) {
         <QuestionItem
           key={question.id}
           question={question}
-          onClick={onClick}
-          onChange={onChange}
+          handleFocus={handleFocus}
+          handleFocusNext={handleFocusNext}
           ref={(el) => {
             if (!el) return;
             questionRefs.current[index] = el;

@@ -1,6 +1,6 @@
 'use client';
 
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 import styles from './index.module.css';
 import { SpeechButton } from '../SpeechButton';
 import { useSpeech } from '../../lib/hooks/useSpeech';
@@ -8,18 +8,42 @@ import { Question } from '../../lib/mock/questions';
 
 type Props = {
   question: Question;
-  onClick: (id: number) => void;
-  onChange: (id: number) => void;
+  handleFocus: (id: number) => void;
+  handleFocusNext: (id: number) => void;
 };
 
 export const QuestionItem = forwardRef<HTMLLIElement, Props>(function (
-  { question, onClick, onChange }: Props,
+  { question, handleFocus, handleFocusNext }: Props,
   _ref,
 ) {
   const { ref, startSpeech } = useSpeech<HTMLHeadingElement>();
+  const [checkedValue, setCheckedValue] = useState<number | undefined>();
+
+  const handleChange = (value: number, questionId: number) => {
+    setCheckedValue(value);
+    handleFocusNext(questionId);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    switch (e.key) {
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+        e.preventDefault();
+        handleChange(Number(e.key), question.id);
+        break;
+    }
+  };
 
   return (
-    <li ref={_ref} className={styles.root} tabIndex={-1} onClick={() => onClick(question.id)}>
+    <li
+      ref={_ref}
+      className={styles.root}
+      tabIndex={-1}
+      onClick={() => handleFocus(question.id)}
+      onKeyDown={handleKeyDown}>
       <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>
           <SpeechButton label="設問文を読み上げる" onClick={startSpeech} />
@@ -36,7 +60,8 @@ export const QuestionItem = forwardRef<HTMLLIElement, Props>(function (
                 className={styles.radio}
                 name={`${question.id}`}
                 value={option.value}
-                onChange={() => onChange(question.id)}
+                checked={checkedValue === option.value}
+                onChange={() => handleChange(option.value, question.id)}
                 required
               />
               <span>{option.label}</span>
