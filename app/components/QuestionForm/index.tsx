@@ -3,21 +3,11 @@
 import { useActionState, useEffect, useState } from 'react';
 import styles from './index.module.css';
 import { TextWithRuby } from '../TextWithRuby';
+import { submit } from './action';
 
 type Props = {
   children: React.ReactNode;
 };
-
-async function submit(_: null, formData: FormData) {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  const answers: { [s: string]: FormDataEntryValue } = {};
-  for (const [name, value] of formData) {
-    answers[name] = value;
-  }
-  console.log(answers);
-  window.alert('回答を受け付けました');
-  return null;
-}
 
 export function QuestionForm({ children }: Props) {
   const [paddingBottom, setPaddingBottom] = useState(0);
