@@ -1,6 +1,7 @@
 import styles from './index.module.css';
 import { SpeedController } from '../SpeedController';
 import { TextWithRuby } from '../TextWithRuby';
+import { RubyController } from '../RubyController';
 
 export function Header() {
   return (
@@ -15,7 +16,10 @@ export function Header() {
           ]}
         />
       </h1>
-      <SpeedController />
+      <div className={styles.controllers}>
+        <SpeedController />
+        <RubyController />
+      </div>
     </header>
   );
 }

@@ -1,0 +1,55 @@
+.controller {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+}
+
+.toggle {
+  display: inline-block;
+  position: relative;
+  width: 3rem;
+  height: 1.5rem;
+  border-radius: 50px;
+  background-color: #dddddd;
+  cursor: pointer;
+  transition: background-color 0.4s;
+}
+
+.toggle:has(:checked) {
+  background-color: var(--accent-color);
+}
+
+.toggle::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgb(0 0 0 / 20%);
+  background-color: #fff;
+  content: '';
+  transition: left 0.4s;
+}
+
+.toggle:has(:checked)::after {
+  left: 1.5rem;
+}
+
+.toggle:has(input:focus-visible) {
+  outline: 2px solid;
+  outline-offset: 4px;
+}
+
+.toggle input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

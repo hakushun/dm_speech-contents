@@ -2,12 +2,16 @@
 
 import { useRef } from 'react';
 import { useSpeechStore } from '../stores/speech';
+import { useRubyStore } from '../stores/ruby';
 
 export function useSpeech<T extends HTMLElement>() {
   const ref = useRef<T | null>(null);
   const speechSpeed = useSpeechStore((state) => state.speechSpeed);
+  const isVisible = useRubyStore((state) => state.isVisible);
 
   function getTextWithoutRuby(element: T) {
+    if (!isVisible) return element.innerText;
+
     // rt要素を一時的に非表示にする
     const rtElements = element.getElementsByTagName('rt');
     const originalDisplay: string[] = [];
