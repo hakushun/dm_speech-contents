@@ -13,12 +13,20 @@ export function QuestionForm({ children }: Props) {
   const [paddingBottom, setPaddingBottom] = useState(0);
   const [, action, isPending] = useActionState(submit, null);
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
+    if (e.key === 'Enter') e.currentTarget.requestSubmit();
+  };
+
   useEffect(() => {
     setPaddingBottom(window.innerHeight / 2);
   }, []);
 
   return (
-    <form action={action} className={styles.form} style={{ paddingBottom: `${paddingBottom}px` }}>
+    <form
+      action={action}
+      className={styles.form}
+      style={{ paddingBottom: `${paddingBottom}px` }}
+      onKeyDown={handleKeyDown}>
       {children}
       <div className={styles.action}>
         <button type="submit" className={styles.submit} disabled={isPending}>
