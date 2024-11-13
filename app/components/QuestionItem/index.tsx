@@ -19,8 +19,16 @@ export const QuestionItem = forwardRef<HTMLLIElement, Props>(function (
 ) {
   const { ref, startSpeech } = useSpeech<HTMLHeadingElement>();
   const [checkedValue, setCheckedValue] = useState<number | undefined>();
+  const [hasKeyDown, setHasKeyDown] = useState<boolean>(false);
 
-  const handleChange = (value: number, questionId: number) => {
+  const handleChange = (value: number) => {
+    setCheckedValue(value);
+  };
+
+  const handleClick = (value: number, questionId: number) => {
+    // キーボード操作でもclickイベントが発火するため
+    if (hasKeyDown) return;
+
     setCheckedValue(value);
     handleFocusNext(questionId);
   };
@@ -33,7 +41,7 @@ export const QuestionItem = forwardRef<HTMLLIElement, Props>(function (
       case '4':
       case '5':
         e.preventDefault();
-        handleChange(Number(e.key), question.id);
+        handleClick(Number(e.key), question.id);
         break;
     }
   };
@@ -65,7 +73,10 @@ export const QuestionItem = forwardRef<HTMLLIElement, Props>(function (
                   name={`${question.id}`}
                   value={option.value}
                   checked={checkedValue === option.value}
-                  onChange={() => handleChange(option.value, question.id)}
+                  onKeyDown={() => setHasKeyDown(true)}
+                  onKeyUp={() => setHasKeyDown(false)}
+                  onChange={() => handleChange(option.value)}
+                  onClick={() => handleClick(option.value, question.id)}
                   required
                 />
                 <TextWithRuby texts={option.label} />
