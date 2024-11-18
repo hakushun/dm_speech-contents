@@ -21,7 +21,9 @@ export function TextWithRuby({ texts }: Proos) {
           ) : (
             <ruby key={text.text + index}>
               {text.text}
+              <rp>(</rp>
               <rt>{text.ruby}</rt>
+              <rp>)</rp>
             </ruby>
           ),
         )}
